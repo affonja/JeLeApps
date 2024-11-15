@@ -1,0 +1,436 @@
+{
+	"info": {
+		"_postman_id": "15d53713-aa18-4b7b-bcc1-3333cbfccec7",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16502680",
+		"_collection_link": "https://www.postman.com/affonja/workspace/jeleapps/collection/16502680-15d53713-aa18-4b7b-bcc1-3333cbfccec7?action=share&source=collection_link&creator=16502680"
+	},
+	"item": [
+		{
+			"name": "registration",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest({\r",
+							"     url: pm.variables.get(\"base_url\") + '/token', \r",
+							"    method: 'GET'\r",
+							"}, function (err, res) {\r",
+							"    if (err) {\r",
+							"        console.log('Error:', err);\r",
+							"    } else {\r",
+							"        pm.environment.set('auth_token', res.json().token);\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "_token",
+							"value": "{{auth_token}}",
+							"description": "csrf-токен. Можно получить через GET /token",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "example@example.com",
+							"description": "(string) должен быть уникальным для пользователя",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"description": "(string) мин длина 6 символов",
+							"type": "text"
+						},
+						{
+							"key": "gender",
+							"value": "m",
+							"description": "(string) допустимые значения m|f",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/registration",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"registration"
+					]
+				},
+				"description": "Регистрация нового пользователя"
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "_token",
+									"value": "{{auth_token}}",
+									"description": "csrf-токен. Можно получить через GET /token",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "example@example.com",
+									"description": "(string) должен быть уникальным для пользователя",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"description": "(string) мин длина 6 символов",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "m",
+									"description": "(string) допустимые значения m|f",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/registration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"registration"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 15 Nov 2024 09:15:58 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "XSRF-TOKEN=eyJpdiI6Im9EeHA3TmtaS3ArN0dyWGMzcHN0Wmc9PSIsInZhbHVlIjoicHA2SkNDcFhDVDJYTXNGZ2R2MnhoUUZMQmNCb3lrT0Nub1ZWd1RscjRHM0lKQzdSMUxVRjg1eUp3dWsvR2xNdWV6bDg0ZC9NZitmSUtKQjlhQjFlUWpmVExHbUdXUVVzcnFtcnVOelhQcGU2Y1BKaU9zbjNlbDlGaGc5QU1hVm8iLCJtYWMiOiI1N2QwMzFiMDZkZTY2ODY5YWZiMDc1MTBiYzIyMmIwYWRhODY0NGYyZDQwZGRlMzdhNTc4ZTRkNzg1OWViZWNmIiwidGFnIjoiIn0%3D; expires=Fri, 15 Nov 2024 11:15:58 GMT; Max-Age=7200; path=/; samesite=lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "laravel_session=eyJpdiI6IlE3UDc1YzY0RDVDbUkzL3drVHJFd1E9PSIsInZhbHVlIjoiSld5M0RNQ3JicWNkQmFIVmZjendKeUZKVEo1L2pCbDVDQ2VyT1ZRSWtib2F2Uk9MK24vcjBjd0RGNkxBb3ZQUXdqVVRlb2dISzlReU9uZGM0cDJZRzlNZEdIVGZhanIzcVh3ekY1YmVFQU5rcjhpemlRWVp0ZUtuSG9ZaGZxYlMiLCJtYWMiOiI2ZDkzZDc2ZjY1MDc4MjEwZmY5ZDllNzcyZWQzMGZhN2FkNzdhNzUxZDlhMWJhYTQ2ZTRjZjhhNTcyYmExMzdiIiwidGFnIjoiIn0%3D; expires=Fri, 15 Nov 2024 11:15:58 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"message\": \"User created\"\n}"
+				},
+				{
+					"name": "error",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "_token",
+									"value": "{{auth_token}}",
+									"description": "csrf-токен. Можно получить через GET /token",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "example@example.com",
+									"description": "(string) должен быть уникальным для пользователя",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"description": "(string) мин длина 6 символов",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "m",
+									"description": "(string) допустимые значения m|f",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/registration",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"registration"
+							]
+						}
+					},
+					"status": "Unprocessable Content",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 15 Nov 2024 09:16:28 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "XSRF-TOKEN=eyJpdiI6ImJOWXIxNHQ2cEs1UlQvTkhhR2dTdWc9PSIsInZhbHVlIjoiR09zbGwwK2c3T0pOTkVkdjdCSjFtQlovVHJud0ZVMHFYR3l6blZyTkFHQ21MOU83OVJXOXhzdmJzZXlLK2wzVk5jekpzb2htRTJjMStmOFhnU2FaVjFpOHdNSi9iOHU1RmszUWlTaDQwcVYrMUtGWWVIekVWV2JnUUd2aGFWbzQiLCJtYWMiOiI1MjE5N2MyNTZlMDI4ZjE4YzQ3NThjYzIyZDA3Y2NlNTdmZjM3MzAzZDY2YWJkMTkwZWM2YmMyOTQ4OWMxNjA0IiwidGFnIjoiIn0%3D; expires=Fri, 15 Nov 2024 11:16:28 GMT; Max-Age=7200; path=/; samesite=lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "laravel_session=eyJpdiI6Ik1nN25MNkpBNEdCb0ZhcDJlMmwyeHc9PSIsInZhbHVlIjoiQVkvdnpBd3k1MTZFL0x5QnZ1TkhXMDgybHF0UWNieVQ5WjQvQ3BqeitZYitDY25Jd2NzOHRHK2hQS3ZoVmkrdHg4bXBjVUg4d1BSTzZjK0ptN3R4OVNLamdzWjZBZWtISWxKdnhza1dLb2dhekd3SjVzOUpuUE04N0kraHdwNXkiLCJtYWMiOiJmYWNkYTlmODg5ODlhOWMxYjI1MWIzYjY2MWFiYmM2OGQ4ZTk0ZTUxYzA1YTQ3MTRiMDJjMDA2MmY5Njg5ODQzIiwidGFnIjoiIn0%3D; expires=Fri, 15 Nov 2024 11:16:28 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"The email has already been taken.\",\n    \"errors\": {\n        \"email\": [\n            \"The email has already been taken.\"\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "profile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/profile/:id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"profile",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1",
+							"description": "id пользователя"
+						}
+					]
+				},
+				"description": "Получение профиля пользователя"
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/profile/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"profile",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "id пользователя"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 15 Nov 2024 09:17:50 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "XSRF-TOKEN=eyJpdiI6IkJMYnJMb1ZOUVpuSGJqL21WdXdoYUE9PSIsInZhbHVlIjoiaTNNVEFWK041SmdvVmdiOGh6MEJYY25nc1JOTm5MaGJtci9jd0VvUnVUSzNnbEF1elFCZ0plVjBxZmVzUktqTEo4L0hpZldZWU5NUFFndkNPVTVXSmh2d3I4NEsrenJMTys3cytuYWtmY3g3cHFyc2s4SWhCSlBZNGIvTFlFajMiLCJtYWMiOiIwZGNhMmY2NGY3NDc5MWVhNGEwN2Q4YzdkNDU1ODUxNzE3MDlhZDRmMGExZjFlZDg2MzJhOTdhM2UzNmIyYWQ5IiwidGFnIjoiIn0%3D; expires=Fri, 15 Nov 2024 11:17:50 GMT; Max-Age=7200; path=/; samesite=lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "laravel_session=eyJpdiI6Ijk5MVgwUEU4OHpNOE9CQ3gzRks2aWc9PSIsInZhbHVlIjoiYzZpYTkxajREbzY4aXZjWi9hZ28wcFc1b3VVdS9IYTlsREMyUmRFT3pMSmJudnpLeHJpSGlwdVJxMGlXcE5EdWhOOHZOaHIwTEV5c2RYdnM1VnhQdGJQS3VLMUJ4S2pwajBDdUJ0Tkg0YUU0ZnRQRk1WdnY2Z0tqaHBhYi9qTnIiLCJtYWMiOiJmMDMxZDRhMmExMzg4ZTNkOWY4ZDM4MWNhM2Y2ZjAzMWNmNjk0YmEwMDgzNjRhZTlhMDI3NGZiYmNlOWUxODI4IiwidGFnIjoiIn0%3D; expires=Fri, 15 Nov 2024 11:17:50 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": 1,\n        \"email\": \"example@example.com\",\n        \"gender\": \"m\",\n        \"created_at\": \"2024-11-15T09:15:58.000000Z\",\n        \"updated_at\": \"2024-11-15T09:15:58.000000Z\"\n    }\n}"
+				},
+				{
+					"name": "error",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/profile/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profile",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "id пользователя"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 15 Nov 2024 08:54:57 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "XSRF-TOKEN=eyJpdiI6IkYwY3hPeDBnRTlOTmhHOXJDbVpBTGc9PSIsInZhbHVlIjoiS3F4MENWeW0xMm41ZTRoeElmZWdFb0x5TEwwYnFuUE8veDZ6VmJ1SUJUNHFVMFJJVFpoLy9KSm0xL29KK0pRZnRXd1k5M2RnN3VNQ1czWnZPdzVuaWFaUXUraEpVbUNRVytlSjJ2YWJPMm1FUTRESmV5MmVIT3N2YS9rSDNEd3YiLCJtYWMiOiJmYWVlMzljMTJiZWU2ZTQxMGViODg2ZTU3NmFiZTBhODU5ZTYwYzMzM2ZjNmQ2MDMzMDBhM2IzZWI1YTA5M2IyIiwidGFnIjoiIn0%3D; expires=Fri, 15 Nov 2024 10:54:57 GMT; Max-Age=7200; path=/; samesite=lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "laravel_session=eyJpdiI6Ii8zZkdzWHI4MCtFdVk2N0FIandhVlE9PSIsInZhbHVlIjoiQSt6UVUyeVFoeFRGeGg4OUU1aTRYZFp4MElCYVlTWkhuaFh2emhlOFU3RktaczNBNzdnanBLeGR3VFZ6WDF4T2tiWnVwR21DQlZMVGNuSUtpN2lEbi9ZV2JhQmhiNDR4bXdtWm1ReDJLZmxXcHVvSmRsL2U2Q05BbDAwRFYvNTUiLCJtYWMiOiJkNTEzMzUxN2U5ZjZmYTgxZjllNzU1M2ZkNGY1ODgxMmVhY2I2MTIxMzVmMDRhNGI2MmI3OGYwZjMxODFkZWVmIiwidGFnIjoiIn0%3D; expires=Fri, 15 Nov 2024 10:54:57 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"message\": \"User not found\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	]
+}
